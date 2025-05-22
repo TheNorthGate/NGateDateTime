@@ -28,9 +28,34 @@ const newDate = dt.addDays(5).subtractHours(3);
 console.log(newDate.format('YYYY-MM-DD HH:mm:ss'));
 ```
 
-## Internacionalização
+## Internacionalização e Formatação
 
 Por padrão, inclui inglês (default) e português do Brasil. Para adicionar novos locais, basta criar um arquivo em `locales/` (ex: `es.js`).
+
+### Exemplo de formatação com locale e abreviação de mês (token MMM):
+
+```js
+const dtPT = new NGateDateTime('2025-05-22T09:30:00Z', { locale: 'pt-BR' });
+console.log(dtPT.format('DD MMM YYYY')); // 22 Mai 2025
+
+const dtEN = new NGateDateTime('2025-05-22T09:30:00Z', { locale: 'en' });
+console.log(dtEN.format('DD MMM YYYY')); // 22 May 2025
+```
+
+- Suporte a tokens: YYYY, MM, DD, HH, mm, ss, MMM, MMMM, ddd, dddd, etc.
+- Métodos para manipulação, comparação, diferença, acesso e conversão de datas.
+
+## Exemplos Didáticos
+
+Veja exemplos completos e didáticos em `examples/index.html`.
+Cada exemplo mostra o código executado, o resultado esperado e o resultado obtido, cobrindo:
+- Data atual
+- Parsing e formatação
+- Manipulação
+- Internacionalização
+- Utilitários
+- Fallback de locale
+- Demonstração de todos os métodos e propriedades
 
 ## Testes
 
