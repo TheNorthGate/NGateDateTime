@@ -15,9 +15,14 @@
     "datetime",
     "ngatecore",
     "i18n",
-    "javascript"
+    "javascript",
+    "library"
   ],
-  "author": "Evandro",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheNorthGate/NGateDateTime.git"
+  },
+  "author": "The North Gate",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^9.27.0",
