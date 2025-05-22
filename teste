@@ -1,0 +1,202 @@
+Objetivo:
+Desenvolver uma biblioteca JavaScript minimalista para manipulação de datas e horários, que ofereça recursos de parsing, validação, manipulação e exibição de datas e tempos de forma eficiente. A API deve ser moderna, intuitiva e confortável para desenvolvedores, funcionando tanto de forma independente quanto integrada ao NGateCore (disponível em https://www.npmjs.com/package/ngatecore).
+
+Requisitos Técnicos:
+Compatibilidade e Integração:
+
+NGateDateTime deve funcionar autonomamente sem dependências externas.
+
+Deve oferecer compatibilidade total com NGateCore, permitindo integração sem conflitos.
+
+Parsing e Validação:
+
+Suporte para parsing de datas em múltiplos formatos comuns (YYYY-MM-DD, MM/DD/YYYY, DD/MM/YYYY, ISO 8601).
+
+Validação de entradas para garantir que datas e horários estejam dentro de intervalos aceitáveis.
+
+Manipulação de Datas e Horários:
+
+Métodos para adicionar/remover dias, meses, anos, horas, minutos e segundos.
+
+Suporte para cálculos como diferença entre datas, verificação de dias úteis, conversões de fuso horário.
+
+Funções avançadas para ajuste de horários com base em regras de negócios.
+
+Exibição e Formatação:
+
+Formatação personalizada com suporte para múltiplos idiomas.
+
+Exibição de datas em estilos comuns (long, short, relative, time-only).
+
+Suporte para formatação compatível com padrões RFC 2822 e ISO 8601.
+
+API Moderna e Intuitiva:
+
+Interface fluida e funcional inspirada em bibliotecas modernas.
+
+Métodos encadeáveis para operações mais expressivas e concisas.
+
+Suporte para promises e eventuais extensões para manipulação assíncrona de dados temporais.
+
+Performance e Modularidade:
+
+Código otimizado para alto desempenho e baixa sobrecarga.
+
+Estrutura modular permitindo importação de funcionalidades específicas.
+
+Suporte para tree-shaking em ESM (ECMAScript Modules).
+
+Testes e Manutenção:
+
+Cobertura de testes unitários com Jest ou outra ferramenta moderna.
+
+Documentação clara e bem estruturada para fácil adoção.
+
+Código bem organizado, seguindo as melhores práticas de desenvolvimento.
+
+Deve ter ótimo suporte para internacionalização. 
+
+Por padrão, o NGateDateTime inclui apenas o local em inglês e portugues do Brasil, sendo o ingles o default. 
+
+Mas deve ser extremamente fácil adicionar novos locais.
+
+Por exemplo, para adicionar o local espanhol, basta criar um arquivo com o nome "es.js" e colocar dentro do diretório "locales".
+
+<script src="/DATETIME_DIR/ngate-datetime.js"></script>
+<script src="/DATETIME_DIR/locales/es.js"></script>
+
+Abaixo  temos exemplo de implementação da biblioteca NGateDateTime
+
+# HTML
+<script src="ngate-datetime.js"></script>
+
+<script>
+  // Criação de uma nova data
+  const dt = new NGateDateTime("2025-05-22T09:30:00Z");
+  const dt2 = new NGateDateTime("2025-11-22T09:30:00Z", { locale: 'pt-BR' });
+  const dt3 = new NGateDateTime("2025-09-22T09:30:00Z", { timezone: 'America/Sao_Paulo' });
+  const dt4 = new NGateDateTime("2025-07-22T09:30:00Z", { format: 'YYYY-MM-DD HH:mm:ss' });
+  const dt5 = new NGateDateTime("2025-06-22T09:30:00Z", { format: 'DD/MM/YYYY' });
+  const dt6 = new NGateDateTime({format: 'DD/YY/YYYY' }); // should be current date
+  const dt7 = new NGateDateTime({2d, format: 'YYYY-MM-DD' }); // should be current date + 2 days
+  const dt8 = new NGateDateTime({-2h, format: 'YYYY-MM-DD' }); // should be current date - 2 hours
+
+  // Manipulação
+  const newDate = dt.addDays(5).subtractHours(3);
+  const newDate2 = dt2.addDays(5).subtractHours(3);
+  const newDate3 = dt3.addYear(5).addHours(3);
+  const newDate4 = dt4.difference(dt5);
+
+  // Cálculos 
+  const diffInDays = dt4.diffInDays(dt5);
+  const diffInHours = dt4.diffInHours(dt5);
+  const diffInMinutes = dt4.diffInMinutes(dt5);
+  const diffInSeconds = dt4.diffInSeconds(dt5);
+  const diffInMilliseconds = dt4.diffInMilliseconds(dt5);
+  const diffInWeeks = dt4.diffInWeeks(dt5);
+  const diffInMonths = dt4.diffInMonths(dt5);
+  const diffInYears = dt4.diffInYears(dt5);
+  const addDays = dt4.addDays(5);
+  const addHours = dt4.addHours(3);
+  const addMinutes = dt4.addMinutes(10);
+  const addSeconds = dt4.addSeconds(20);
+  const subtractDays = dt4.subtractDays(5);
+  const subtractHours = dt4.subtractHours(3);
+  const subtractMinutes = dt4.subtractMinutes(10);
+  const subtractSeconds = dt4.subtractSeconds(20);
+  const startOfDay = dt4.startOfDay();
+  const endOfDay = dt4.endOfDay();
+  const startOfMonth = dt4.startOfMonth();
+  const endOfMonth = dt4.endOfMonth();
+  const startOfYear = dt4.startOfYear();
+  const endOfYear = dt4.endOfYear();
+  const startOfWeek = dt4.startOfWeek();
+  const endOfWeek = dt4.endOfWeek();
+  const startOfHour = dt4.startOfHour();
+  const endOfHour = dt4.endOfHour();
+  const startOfMinute = dt4.startOfMinute();
+  const endOfMinute = dt4.endOfMinute();
+  const startOfSecond = dt4.startOfSecond();
+  const endOfSecond = dt4.endOfSecond();
+  const isWeekend = dt5.isWeekend();
+  cons isWorkday = dt5.isWorkday();
+  const isLeapYear = dt6.isLeapYear();
+  const isValid = dt6.isValid();
+  const isFuture = dt6.isFuture();
+  const isPast = dt6.isPast();
+  const isToday = dt6.isToday();
+  const isTomorrow = dt6.isTomorrow();
+  const isYesterday = dt6.isYesterday();
+  const isSameDay = dt6.isSameDay(dt5);
+  const isSameMonth = dt6.isSameMonth(dt5);
+  const isSameYear = dt6.isSameYear(dt5);
+  const isSameHour = dt6.isSameHour(dt5);
+  const isSameMinute = dt6.isSameMinute(dt5);
+  const isSameSecond = dt6.isSameSecond(dt5);
+  const isSameMillisecond = dt6.isSameMillisecond(dt5);
+  const isSame = dt6.isSame(dt5);
+  const isAfter = dt6.isAfter(dt5);
+  const isBefore = dt6.isBefore(dt5);
+  const isBetween = dt6.isBetween(dt5, dt3);
+  const isSameOrAfter = dt6.isSameOrAfter(dt5);
+  const isSameOrBefore = dt6.isSameOrBefore(dt5);
+  const isBetween = dt8.isBetween("2019", "2021");
+  const isBetween = dt8.isBetween(dt3, "2027");
+  const isBetween = dt8.isBetween(dt6, dt7);
+
+  const day = dt6.getDay();
+  const month = dt6.getMonth();
+  const year = dt6.getFullYear();
+  const hours = dt6.getHours();
+  const minutes = dt6.getMinutes();
+  const seconds = dt6.getSeconds();
+  const milliseconds = dt6.getMilliseconds();
+  const week = dt6.getWeek();
+  const weekOfYear = dt6.getWeekOfYear();
+  const weekOfMonth = dt6.getWeekOfMonth();
+
+  const getDay = dt7.day();
+  const getMonth = dt7.month();
+  const getYear = dt7.year();
+  const getHours = dt7.hours();
+  const getMinutes = dt7.minutes();
+  const getSeconds = dt7.seconds();
+  const getMilliseconds = dt7.milliseconds();
+  const getWeek = dt7.week();
+  const getWeekOfYear = dt7.weekOfYear();
+  const getWeekOfMonth = dt7.weekOfMonth();
+  const getDate = dt7.date();
+  const getFullYear = dt7.fullYear();
+  const getDayOfYear = dt7.dayOfYear();
+
+  const setDay = dt8.setDay(5);
+  const setMonth = dt8.setMonth(5);
+  const setYear = dt8.setYear(2025);
+  const setHours = dt8.setHours(5);
+  const setMinutes = dt8.setMinutes(5);
+  const setSeconds = dt8.setSeconds(5);
+  const setMilliseconds = dt8.setMilliseconds(5);
+
+  // Definição de idiomas
+  newDate.setLocale('pt-BR'); // Definindo o idioma para português do Brasil
+
+  // Exibição
+  console.log(newDate.format('YYYY-MM-DD HH:mm:ss'));
+  console.log(newDate2.useLocale('pt-BR').format('YYYY-MM-DD HH:mm:ss'));
+
+</script>
+
+# NodeJS ou Webpack ou JS moderna
+import { NGateDateTime } from 'ngate-datetime';
+const dt = new NGateDateTime("2025-05-22T09:30:00Z");
+
+// Manipulação
+const newDate = dt.addDays(5).subtractHours(3);
+
+// Exibição formatada
+console.log(newDate.format('YYYY-MM-DD HH:mm:ss'));
+
+// Integração com NGateCore
+import { NGateCore } from 'ngatecore';
+const core = new NGateCore();
+core.useDateTime(newDate);
