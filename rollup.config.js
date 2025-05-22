@@ -1,7 +1,7 @@
 import { terser } from 'rollup-plugin-terser';
 
 export default [
-  // UMD
+  // UMD (import estático)
   {
     input: 'src/NGateDateTime.js',
     output: [
@@ -22,7 +22,7 @@ export default [
       }
     ]
   },
-  // ESM
+  // ESM (import dinâmico, sem pasta esm)
   {
     input: 'src/NGateDateTime.js',
     output: [

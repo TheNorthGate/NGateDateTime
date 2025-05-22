@@ -1,7 +1,7 @@
 // Utilitários para parsing, validação e manipulação de datas
 // (Stub inicial)
 
-export function parseDate(input, format, locale) {
+export function parseDate(input, format/*, locale*/) {
   if (input instanceof Date) return new Date(input);
   if (!input) return new Date();
 

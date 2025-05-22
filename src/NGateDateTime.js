@@ -1,4 +1,4 @@
-import { parseDate, isValidDate, addDays, addMonths, addYears, addHours, addMinutes, addSeconds } from './utils/index.js';
+import { parseDate, isValidDate, addDays, addMonths, addYears, addHours, addMinutes, addSeconds, formatDate } from './utils/index.js';
 
 // Importação estática dos locais para garantir que sejam incluídos no bundle
 import enLocale from './locales/en.js';
@@ -217,21 +217,22 @@ export class NGateDateTime {
     this._localeData = LOCALES[this.options.locale];
     return this;
   }
+  static registerLocale(localeName, localeData) {
+    LOCALES[localeName] = localeData;
+  }
   useLocale(locale) {
-    return this.setLocale(locale);
+    const resolved = resolveLocale(locale);
+    this.options.locale = resolved;
+    this._localeData = LOCALES[resolved];
+    return this;
   }
 
   format(fmt) {
     const d = this._date;
     if (!isValidDate(d)) return '';
     let f = fmt || this.options.format || 'YYYY-MM-DD HH:mm:ss';
-    return f
-      .replace('YYYY', d.getFullYear())
-      .replace('MM', pad(d.getMonth() + 1))
-      .replace('DD', pad(d.getDate()))
-      .replace('HH', pad(d.getHours()))
-      .replace('mm', pad(d.getMinutes()))
-      .replace('ss', pad(d.getSeconds()));
+    // Usa a função utilitária formatDate para suportar tokens como MMM, MMMM, etc.
+    return formatDate(d, f, this._localeData);
   }
 
   difference(other) {
@@ -263,4 +264,17 @@ export class NGateDateTime {
   toString() {
     return this._date.toString();
   }
+}
+
+// Expor para uso global em browser UMD
+if (typeof window !== 'undefined') {
+  window.NGateDateTime = NGateDateTime;
+  window.NGateDateTime.registerLocale = NGateDateTime.registerLocale;
+  // Registro automático de todos os window.*Locale globais
+  Object.keys(window).forEach(function(key) {
+    if (/^[a-z]{2,}Locale$/.test(key) && typeof window[key] === 'object') {
+      const localeName = key.replace('Locale', '');
+      NGateDateTime.registerLocale(localeName, window[key]);
+    }
+  });
 }

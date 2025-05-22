@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Exemplos NGateDateTime</title>
+  <script src="../dist/ngate-datetime.js"></script>
+  <script src="../src/locales/es.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; }
+    h2 { margin-top: 2em; }
+    pre { background: #f4f4f4; padding: 1em; border-radius: 4px; }
+    .result { color: #007700; font-weight: bold; }
+    .esperado { color: #0055bb; }
+    .obtido { color: #007700; }
+  </style>
+</head>
+<body>
+  <h1>Exemplos de uso - NGateDateTime</h1>
+
+  <h2>1. Data atual (default)</h2>
+  <pre id="ex1code"></pre>
+  <pre id="ex1esperado"></pre>
+  <pre id="ex1obtido"></pre>
+
+  <script>
+    // Exemplo 1: Data atual (default)
+    var ex1Code = `const dtEx1 = new NGateDateTime();\ndtEx1.toISOString();`;
+    document.getElementById('ex1code').textContent = 'Código executado:\n' + ex1Code;
+    document.getElementById('ex1esperado').innerHTML = '<span class="esperado">// Esperado: Uma string no formato ISO da data/hora atual, ex: 2025-05-22T12:34:56.789Z</span>';
+    var dtEx1 = new NGateDateTime();
+    document.getElementById('ex1obtido').innerHTML = '<span class="obtido">Obtido: ' + dtEx1.toISOString() + '</span>';
+  </script>
+
+  <h2>2. Parsing e formatação</h2>
+  <pre id="ex2code"></pre>
+  <pre id="ex2esperado"></pre>
+  <pre id="ex2obtido"></pre>
+
+  <h2>3. Manipulação de datas</h2>
+  <pre id="ex3code"></pre>
+  <pre id="ex3esperado"></pre>
+  <pre id="ex3obtido"></pre>
+
+  <h2>4. Internacionalização</h2>
+  <pre id="ex4code"></pre>
+  <pre id="ex4esperado"></pre>
+  <pre id="ex4obtido"></pre>
+
+  <h2>5. Métodos utilitários</h2>
+  <pre id="ex5code"></pre>
+  <pre id="ex5esperado"></pre>
+  <pre id="ex5obtido"></pre>
+
+  <h2>6. Fallback automático para inglês</h2>
+  <pre id="ex6code"></pre>
+  <pre id="ex6esperado"></pre>
+  <pre id="ex6obtido"></pre>
+
+  <h2>7. Demonstração de todos os métodos e propriedades</h2>
+  <pre id="ex7code"></pre>
+  <pre id="ex7esperado"></pre>
+  <pre id="ex7obtido"></pre>
+
+  <script>
+    // Exemplo 1: Data atual (default)
+    var ex1Code = `const dtEx1 = new NGateDateTime();\ndtEx1.toISOString();`;
+    document.getElementById('ex1code').textContent = 'Código executado:\n' + ex1Code;
+    document.getElementById('ex1esperado').innerHTML = '<span class="esperado">// Esperado: Uma string no formato ISO da data/hora atual, ex: 2025-05-22T12:34:56.789Z</span>';
+    var dtEx1 = new NGateDateTime();
+    document.getElementById('ex1obtido').innerHTML = '<span class="obtido">Obtido: ' + dtEx1.toISOString() + '</span>';
+
+    // Exemplo 2: Parsing e formatação
+    var ex2Code = `const dtEx2 = new NGateDateTime('2025-11-22T09:30:00Z');\ndtEx2.format('YYYY-MM-DD HH:mm:ss');`;
+    document.getElementById('ex2code').textContent = 'Código executado:\n' + ex2Code;
+    document.getElementById('ex2esperado').innerHTML = '<span class="esperado">// Esperado: 2025-11-22 09:30:00</span>';
+    var dtEx2 = new NGateDateTime('2025-11-22T09:30:00Z');
+    document.getElementById('ex2obtido').innerHTML = '<span class="obtido">Obtido: ' + dtEx2.format('YYYY-MM-DD HH:mm:ss') + '</span>';
+
+    // Exemplo 3: Manipulação de datas
+    var ex3Code = `const dtEx3 = new NGateDateTime('2025-01-01T00:00:00Z');\ndtEx3.addDays(10).addMonths(1).addYears(2);\ndtEx3.format('YYYY-MM-DD');`;
+    document.getElementById('ex3code').textContent = 'Código executado:\n' + ex3Code;
+    document.getElementById('ex3esperado').innerHTML = '<span class="esperado">// Esperado: 2027-02-11</span>';
+    var dtEx3 = new NGateDateTime('2025-01-01T00:00:00Z');
+    dtEx3.addDays(10).addMonths(1).addYears(2);
+    document.getElementById('ex3obtido').innerHTML = '<span class="obtido">Obtido: ' + dtEx3.format('YYYY-MM-DD') + '</span>';
+
+    // Exemplo 4: Internacionalização
+    var ex4Code = `const dtPT = new NGateDateTime('2025-11-22T09:30:00Z', { locale: 'pt-BR' });\nconst dtEN = new NGateDateTime('2025-11-22T09:30:00Z', { locale: 'en' });\nconst dtES = new NGateDateTime('2025-11-22T09:30:00Z', { locale: 'es' });\ndtPT.format('YYYY-MM-DD HH:mm:ss');\ndtEN.format('YYYY-MM-DD HH:mm:ss');\ndtES.format('YYYY-MM-DD HH:mm:ss');`;
+    document.getElementById('ex4code').textContent = 'Código executado:\n' + ex4Code;
+    document.getElementById('ex4esperado').innerHTML = '<span class="esperado">// Esperado: 2025-11-22 09:30:00 para todos, mas com locale diferente</span>';
+    var dtPT = new NGateDateTime('2025-11-22T09:30:00Z', { locale: 'pt-BR' });
+    var dtEN = new NGateDateTime('2025-11-22T09:30:00Z', { locale: 'en' });
+    var dtES = new NGateDateTime('2025-11-22T09:30:00Z', { locale: 'es' });
+    document.getElementById('ex4obtido').innerHTML =
+      '<span class="obtido">pt-BR: ' + dtPT.format('YYYY-MM-DD HH:mm:ss') + '<br>en: ' + dtEN.format('YYYY-MM-DD HH:mm:ss') + '<br>es: ' + dtES.format('YYYY-MM-DD HH:mm:ss') + '</span>';
+
+    // Exemplo 5: Métodos utilitários
+    var ex5Code = `const dtEx5 = new NGateDateTime('2024-02-29T12:00:00Z');\ndtEx5.isLeapYear();\ndtEx5.isWeekend();\ndtEx5.isWorkday();\ndtEx5.isToday();`;
+    document.getElementById('ex5code').textContent = 'Código executado:\n' + ex5Code;
+    document.getElementById('ex5esperado').innerHTML = '<span class="esperado">// Esperado: isLeapYear: true, isWeekend: false, isWorkday: true, isToday: false</span>';
+    var dtEx5 = new NGateDateTime('2024-02-29T12:00:00Z');
+    document.getElementById('ex5obtido').innerHTML = '<span class="obtido">Obtido: isLeapYear: ' + dtEx5.isLeapYear() + ', isWeekend: ' + dtEx5.isWeekend() + ', isWorkday: ' + dtEx5.isWorkday() + ', isToday: ' + dtEx5.isToday() + '</span>';
+
+    // Exemplo 6: Fallback automático para inglês
+    var ex6Code = `const dtEx6 = new NGateDateTime('2025-11-22T09:30:00Z', { locale: 'fr' });\ndtEx6.options.locale;\ndtEx6.format('YYYY-MM-DD HH:mm:ss');`;
+    document.getElementById('ex6code').textContent = 'Código executado:\n' + ex6Code;
+    document.getElementById('ex6esperado').innerHTML = '<span class="esperado">// Esperado: locale efetivo: en, formato: 2025-11-22 09:30:00</span>';
+    var dtEx6 = new NGateDateTime('2025-11-22T09:30:00Z', { locale: 'fr' });
+    document.getElementById('ex6obtido').innerHTML = '<span class="obtido">Obtido: locale efetivo: ' + dtEx6.options.locale + ', formato: ' + dtEx6.format('YYYY-MM-DD HH:mm:ss') + '</span>';
+
+    // Exemplo 7: Demonstração de todos os métodos e propriedades
+    var ex7Code = `const dtEx7 = new NGateDateTime('2025-05-22T09:30:00Z', { locale: 'en', format: 'YYYY-MM-DD' });\n// Manipulação, comparação, diferença, formatação, internacionalização, acesso e conversão\n// Veja documentação para lista completa de métodos.`;
+    document.getElementById('ex7code').textContent = 'Código executado:\n' + ex7Code;
+    document.getElementById('ex7esperado').innerHTML = '<span class="esperado">// Esperado: Demonstração de todos os métodos e propriedades, veja abaixo</span>';
+    var dtEx7 = new NGateDateTime('2025-05-22T09:30:00Z', { locale: 'en', format: 'YYYY-MM-DD' });
+    // Manipulação
+    dtEx7.addDays(5).subtractDays(2).addMonths(1).subtractMonths(1).addYears(1).subtractYears(1)
+      .addHours(2).subtractHours(1).addMinutes(30).subtractMinutes(15).addSeconds(10).subtractSeconds(5);
+    dtEx7.setDay(10).setMonth(6).setYear(2030).setHours(8).setMinutes(45).setSeconds(30).setMilliseconds(123);
+    dtEx7.startOfDay(); dtEx7.endOfDay(); dtEx7.startOfMonth(); dtEx7.endOfMonth(); dtEx7.startOfYear(); dtEx7.endOfYear();
+    // Comparação
+    var isWeekend = dtEx7.isWeekend();
+    var isWorkday = dtEx7.isWorkday();
+    var isLeapYear = dtEx7.isLeapYear();
+    var isValid = dtEx7.isValid();
+    var isFuture = dtEx7.isFuture();
+    var isPast = dtEx7.isPast();
+    var isToday = dtEx7.isToday();
+    var isTomorrow = dtEx7.isTomorrow();
+    var isYesterday = dtEx7.isYesterday();
+    var isSameDay = dtEx7.isSameDay(new Date());
+    var isSameMonth = dtEx7.isSameMonth(new Date());
+    var isSameYear = dtEx7.isSameYear(new Date());
+    var isAfter = dtEx7.isAfter('2025-01-01');
+    var isBefore = dtEx7.isBefore('2030-01-01');
+    var isBetween = dtEx7.isBetween('2025-01-01', '2030-01-01');
+    // Diferença
+    var diff = dtEx7.difference('2025-05-20');
+    var diffDays = dtEx7.diffInDays('2025-05-20');
+    var diffHours = dtEx7.diffInHours('2025-05-20');
+    var diffMinutes = dtEx7.diffInMinutes('2025-05-20');
+    var diffSeconds = dtEx7.diffInSeconds('2025-05-20');
+    var diffMilliseconds = dtEx7.diffInMilliseconds('2025-05-20');
+    // Formatação e internacionalização
+    var formatEN = dtEx7.format('DD MMM YYYY');
+    var formatPT = dtEx7.useLocale('pt-BR').format('DD MMM YYYY');
+    dtEx7.setLocale('en');
+    // Acesso
+    var day = dtEx7.getDay();
+    var month = dtEx7.getMonth();
+    var year = dtEx7.getFullYear();
+    var hours = dtEx7.getHours();
+    var minutes = dtEx7.getMinutes();
+    var seconds = dtEx7.getSeconds();
+    var milliseconds = dtEx7.getMilliseconds();
+    var date = dtEx7.getDate();
+    var day2 = dtEx7.day();
+    var month2 = dtEx7.month();
+    var year2 = dtEx7.year();
+    var hours2 = dtEx7.hours();
+    var minutes2 = dtEx7.minutes();
+    var seconds2 = dtEx7.seconds();
+    var milliseconds2 = dtEx7.milliseconds();
+    var date2 = dtEx7.date();
+    var fullYear2 = dtEx7.fullYear();
+    var toDate = dtEx7.toDate();
+    var toISOString = dtEx7.toISOString();
+    var toString = dtEx7.toString();
+    document.getElementById('ex7obtido').innerHTML =
+      `<b>Manipulação:</b><br>
+      Data: <span class="result">${dtEx7.format('YYYY-MM-DD HH:mm:ss')}</span><br>
+      <b>Comparação:</b><br>
+      isWeekend: <span class="result">${isWeekend}</span>, isWorkday: <span class="result">${isWorkday}</span>, isLeapYear: <span class="result">${isLeapYear}</span>, isValid: <span class="result">${isValid}</span><br>
+      isFuture: <span class="result">${isFuture}</span>, isPast: <span class="result">${isPast}</span>, isToday: <span class="result">${isToday}</span>, isTomorrow: <span class="result">${isTomorrow}</span>, isYesterday: <span class="result">${isYesterday}</span><br>
+      isSameDay: <span class="result">${isSameDay}</span>, isSameMonth: <span class="result">${isSameMonth}</span>, isSameYear: <span class="result">${isSameYear}</span><br>
+      isAfter: <span class="result">${isAfter}</span>, isBefore: <span class="result">${isBefore}</span>, isBetween: <span class="result">${isBetween}</span><br>
+      <b>Diferença:</b><br>
+      difference: <span class="result">${diff}</span> ms, diffInDays: <span class="result">${diffDays}</span>, diffInHours: <span class="result">${diffHours}</span>, diffInMinutes: <span class="result">${diffMinutes}</span>, diffInSeconds: <span class="result">${diffSeconds}</span>, diffInMilliseconds: <span class="result">${diffMilliseconds}</span><br>
+      <b>Formatação:</b><br>
+      EN: <span class="result">${formatEN}</span>, PT: <span class="result">${formatPT}</span><br>
+      <b>Acesso:</b><br>
+      getDay: <span class="result">${day}</span>, getMonth: <span class="result">${month}</span>, getFullYear: <span class="result">${year}</span>, getHours: <span class="result">${hours}</span>, getMinutes: <span class="result">${minutes}</span>, getSeconds: <span class="result">${seconds}</span>, getMilliseconds: <span class="result">${milliseconds}</span>, getDate: <span class="result">${date}</span><br>
+      day: <span class="result">${day2}</span>, month: <span class="result">${month2}</span>, year: <span class="result">${year2}</span>, hours: <span class="result">${hours2}</span>, minutes: <span class="result">${minutes2}</span>, seconds: <span class="result">${seconds2}</span>, milliseconds: <span class="result">${milliseconds2}</span>, date: <span class="result">${date2}</span>, fullYear: <span class="result">${fullYear2}</span><br>
+      <b>Conversão:</b><br>
+      toDate: <span class="result">${toDate}</span><br>
+      toISOString: <span class="result">${toISOString}</span><br>
+      toString: <span class="result">${toString}</span>`;
+  </script>
+
+  <!-- Próximos exemplos serão inseridos um por vez, seguindo o mesmo padrão didático -->
+
+  <!-- Exemplo 7b: Demonstração de formatação e internacionalização isolada -->
+  <script>
+    // Exemplo 7b: Demonstração de formatação e internacionalização isolada
+    var ex7bCode = `var dtPT = new NGateDateTime('2025-05-22T09:30:00Z').useLocale('pt-BR').format('DD MMM YYYY');`;
+    var dtPT = new NGateDateTime('2025-05-22T09:30:00Z').useLocale('pt-BR').format('DD MMM YYYY');
+    var esperadoPT = '22 Mai 2025';
+    var resultadoPT = dtPT;
+    var ex7bHtml = '<b>Código executado:</b>\n' + ex7bCode +
+      '\n<span class="esperado">// Esperado: ' + esperadoPT + '</span>' +
+      '\n<span class="obtido">Obtido: ' + resultadoPT + '</span>';
+    var ex7bPre = document.createElement('pre');
+    ex7bPre.innerHTML = ex7bHtml;
+    document.body.appendChild(document.createElement('h2')).innerText = '7b. Formatação e locale (exemplo isolado)';
+    document.body.appendChild(ex7bPre);
+  </script>
+
+</body>
+</html>
